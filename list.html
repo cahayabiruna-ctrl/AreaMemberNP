@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Daftar Anggota</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+    body { background-color: #000000; color: #ffffff; font-size: 12px; }
+
+    /* NAVBAR */
+    .navbar-fixed {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        background: #000; /* Hitam Pekat */
+        border-bottom: 1px solid #D4AF37;
+        height: 50px;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 15px;
+    }
+
+    .btn-back {
+        text-decoration: none; color: #ffffff; /* Putih Terang */
+        border: 1px solid #D4AF37; /* Border Emas */
+        padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: bold;
+        background: #000;
+    }
+
+    .page-title {
+        color: #D4AF37; font-weight: bold; letter-spacing: 1px; font-size: 14px; text-transform: uppercase;
+    }
+
+    /* CONTAINER */
+    .table-container {
+        margin-top: 50px; 
+        width: 100%;
+        padding-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* Kolom rapi */
+    }
+
+    /* HEADER (EMAS MENYALA) */
+    thead th {
+        position: sticky; top: 0; z-index: 10;
+        background-color: #111;
+        color: #D4AF37; /* TEKS HEADER EMAS */
+        font-size: 11px;
+        padding: 15px 5px;
+        text-align: left;
+        border-bottom: 1px solid #333;
+        font-weight: 800; /* Tebal */
+        text-transform: uppercase;
+    }
+
+    /* ISI TABEL (PUTIH TERANG) */
+    tbody td {
+        padding: 12px 5px;
+        border-bottom: 1px solid #222;
+        color: #ffffff; /* TEKS UTAMA PUTIH */
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    tbody tr:nth-child(even) { background-color: #0a0a0a; }
+
+    /* WARNA SPESIFIK KOLOM (DIPERBAIKI) */
+    .col-no { 
+        width: 10%; text-align: center; 
+        color: #D4AF37; /* NOMOR JADI EMAS */
+        font-weight: bold; 
+    }
+    .col-name { 
+        width: 35%; 
+        color: #ffffff; /* NAMA PUTIH BERSIH */
+        font-weight: 500; 
+    } 
+    .col-uid { 
+        width: 20%; 
+        color: #D4AF37; /* UID EMAS */
+        font-family: monospace; font-weight: bold; 
+    }
+    .col-ref { 
+        width: 20%; 
+        color: #eeeeee; /* REFERRAL PUTIH (Bukan Abu) */
+        font-family: monospace; 
+    }
+    .col-date { 
+        width: 15%; text-align: right; 
+        color: #cccccc; /* TANGGAL ABU TERANG */
+        font-size: 10px; 
+    }
+
+    .loading { padding: 30px; text-align: center; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <div class="navbar-fixed">
+    <a href="dashboard.html" class="btn-back">⬅ KEMBALI</a>
+    <span class="page-title">DAFTAR ANGGOTA</span>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-no">NO</th>
+          <th onclick="sortData('name')" style="width: 35%;">NAMA ⬍</th>
+          <th onclick="sortData('uid')" style="width: 20%;">UID ⬍</th>
+          <th onclick="sortData('upline')" style="width: 20%;">REF ⬍</th>
+          <th onclick="sortData('joinDate')" class="text-right" style="width: 15%;">TGL ⬍</th>
+        </tr>
+      </thead>
+      <tbody id="membersTableBody">
+        <tr><td colspan="5" class="loading">Memuat data...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
