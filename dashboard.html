@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="logo.png" alt="Logo" class="nav-logo">
+      <div class="user-info">
+        <h3 id="mName">Loading...</h3>
+        <small id="mUid">...</small>
+      </div>
+    </div>
+    <div class="nav-right">
+      <span class="ref-label">UID UPLINE</span>
+      <span class="ref-val" id="mRefUid">-</span>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <div class="card rank-card">
+      <span class="rank-label">STATUS PERINGKAT SAAT INI</span>
+      <div class="rank-title" id="rankName">V.I.P 0</div>
+      <div class="rank-desc" id="rankNextGoal">Mengejar V.I.P 1</div>
+    </div>
+
+    <div class="card">
+      <div class="total-row">
+        <div class="total-left">
+          <span class="total-sub">Total Anggota Tim</span>
+          <div class="total-num" id="totalMembers">0</div>
+        </div>
+        <div class="total-right">
+          <span class="total-sub">Target Berikutnya</span>
+          <div class="next-val" id="nextLevelGap">0</div>
+          <span class="next-desc">Anggota lagi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-wrap">
+        <canvas id="growthChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card target-card">
+      <div class="target-header" id="currentPeriodLabel">PERIODE BERJALAN</div>
+      <div class="target-body">
+        <div class="data-row">
+          <span>Anggota Periode Lalu</span>
+          <span class="val" id="prevPeriodCount">0</span>
+        </div>
+        <div class="data-row">
+          <span class="text-gold">Target 50%</span>
+          <span class="val text-gold" id="targetCount">0</span>
+        </div>
+        <div class="data-row">
+          <span>Anggota Baru (Saat Ini)</span>
+          <span class="val" id="newMemberCount">0</span>
+        </div>
+        <div class="data-row">
+          <span class="text-red">Masih Membutuhkan</span>
+          <span class="val text-red" id="gapCount">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-grid">
+      <a href="network.html" class="btn-menu primary">LIHAT STRUKTUR JARINGAN</a>
+      <a href="list.html" class="btn-menu">LIHAT DAFTAR ANGGOTA</a>
+      <button onclick="logout()" class="btn-menu btn-logout">KELUAR</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
