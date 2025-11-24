@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Struktur Jaringan</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.3.15/go.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+    body, html { height: 100%; background-color: #000000; overflow: hidden; }
+
+    /* NAVBAR */
+    .navbar-fixed {
+        position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+        background: rgba(10, 10, 10, 0.9);
+        border-bottom: 1px solid #333;
+        height: 50px;
+        display: flex; align-items: center; padding: 0 15px;
+        justify-content: space-between;
+    }
+
+    .btn-back {
+        text-decoration: none;
+        color: #ccc;
+        border: 1px solid #444;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        background: #111;
+    }
+
+    .page-title {
+        color: #D4AF37; font-size: 14px; font-weight: bold; text-transform: uppercase;
+    }
+
+    /* DIAGRAM AREA */
+    #networkDiagram {
+        width: 100%;
+        height: 100vh; /* Full Layar */
+        background-color: #000000;
+    }
+
+    /* TOMBOL DOWNLOAD MELAYANG */
+    .fab-download {
+        position: absolute;
+        bottom: 30px;
+        right: 20px;
+        background-color: #D4AF37;
+        color: #000;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 12px;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        cursor: pointer;
+        z-index: 100;
+    }
+    .fab-download:active { transform: scale(0.95); }
+  </style>
+</head>
+<body>
+
+  <div class="navbar-fixed">
+    <a href="dashboard.html" class="btn-back">⬅ DASHBOARD</a>
+    <span class="page-title">JARINGAN</span>
+  </div>
+
+  <div id="networkDiagram"></div>
+
+  <button onclick="downloadNetworkImage()" class="fab-download">⬇ DOWNLOAD GAMBAR</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

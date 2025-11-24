@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dashboard Member</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #000000; color: #ffffff; padding-bottom: 30px; }
+
+    /* NAVBAR */
+    .navbar {
+        background-color: #111111;
+        border-bottom: 1px solid #333;
+        padding: 10px 20px;
+        position: sticky; top: 0; z-index: 100;
+        display: flex; align-items: center; gap: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    /* KUNCI UKURAN LOGO AGAR TIDAK RAKSASA */
+    .nav-logo { 
+        width: 40px !important; 
+        height: 40px !important; 
+        object-fit: contain;
+    }
+    .user-info h3 { font-size: 14px; margin: 0; color: #fff; font-weight: 600; }
+    .user-info span { font-size: 11px; color: #D4AF37; letter-spacing: 1px; font-family: monospace; }
+
+    /* CONTAINER */
+    .container { padding: 15px; max-width: 600px; margin: 0 auto; }
+
+    /* KARTU (CARD) */
+    .card {
+        background-color: #111111;
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    /* REFERRAL BOX */
+    .ref-row { display: flex; justify-content: space-between; align-items: center; }
+    .ref-label { font-size: 10px; text-transform: uppercase; color: #888; margin-bottom: 3px; display: block; }
+    .ref-val { font-size: 13px; font-weight: bold; color: #eee; }
+    .text-right { text-align: right; }
+    .text-gold { color: #D4AF37 !important; }
+
+    /* TOTAL ANGGOTA */
+    .total-box { text-align: center; padding: 5px 0; }
+    .total-label { font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+    .total-num { font-size: 3.5rem; font-weight: 800; color: #D4AF37; line-height: 1.1; margin-top: 5px; }
+
+    /* TARGET TABLE */
+    .target-card { border: 1px solid #D4AF37; padding: 0; overflow: hidden; }
+    .target-head {
+        background: rgba(212, 175, 55, 0.15);
+        color: #D4AF37; text-align: center;
+        padding: 8px; font-size: 11px; font-weight: bold;
+        border-bottom: 1px solid #333; letter-spacing: 1px;
+    }
+    .target-body { padding: 10px 15px; }
+    .data-row {
+        display: flex; justify-content: space-between; padding: 8px 0;
+        border-bottom: 1px dashed #333; font-size: 13px;
+    }
+    .data-row:last-child { border-bottom: none; }
+    .val { font-family: monospace; font-weight: bold; font-size: 14px; }
+    .red { color: #ff4444; }
+
+    /* BUTTONS */
+    .btn-menu {
+        display: block; width: 100%; padding: 12px;
+        background: #151515; color: #D4AF37; border: 1px solid #D4AF37;
+        text-align: center; text-decoration: none; border-radius: 8px;
+        font-weight: bold; font-size: 12px; text-transform: uppercase;
+        margin-bottom: 10px; transition: 0.2s;
+    }
+    .btn-primary { background: #D4AF37; color: #000; }
+    .btn-logout { background: #222; color: #888; border: 1px solid #333; margin-top: 20px; }
+
+    /* CHART CONTAINER */
+    .chart-wrap { height: 180px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <img src="logo.png" alt="Logo" class="nav-logo">
+    <div class="user-info">
+      <h3 id="mName">Memuat...</h3>
+      <span id="mUid">...</span>
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <div class="card">
+      <div class="ref-row">
+        <div>
+          <span class="ref-label">Referral</span>
+          <strong id="mRefName" class="ref-val">-</strong>
+        </div>
+        <div class="text-right">
+          <span class="ref-label">UID Referral</span>
+          <strong id="mRefUid" class="ref-val text-gold">-</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="total-box">
+        <span class="total-label">Total Anggota Tim</span>
+        <div id="totalMembers" class="total-num">0</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-wrap">
+        <canvas id="growthChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card target-card">
+      <div class="target-head" id="currentPeriodLabel">PERIODE BERJALAN</div>
+      <div class="target-body">
+        <div class="data-row">
+          <span>Anggota Periode Lalu</span>
+          <span id="prevPeriodCount" class="val">0</span>
+        </div>
+        <div class="data-row">
+          <span class="text-gold">Target 50%</span>
+          <span id="targetCount" class="val text-gold">0</span>
+        </div>
+        <div class="data-row">
+          <span>Anggota Baru (Saat Ini)</span>
+          <span id="newMemberCount" class="val">0</span>
+        </div>
+        <div class="data-row">
+          <span class="red">Masih Membutuhkan</span>
+          <span id="gapCount" class="val red">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 15px;">
+      <a href="network.html" class="btn-menu btn-primary">LIHAT STRUKTUR JARINGAN</a>
+      <a href="list.html" class="btn-menu">LIHAT DAFTAR ANGGOTA</a>
+      <button onclick="logout()" class="btn-menu btn-logout">KELUAR</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
