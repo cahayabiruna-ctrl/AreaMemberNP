@@ -1,0 +1,68 @@
+:root { --bg: #000; --card: #111; --gold: #D4AF37; --text: #fff; --border: #222; --danger: #ff4444; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+body { background: var(--bg); color: var(--text); font-size: 12px; min-height: 100vh; }
+
+.container { max-width: 480px; margin: 0 auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.text-gold { color: var(--gold) !important; } .text-red { color: var(--danger) !important; } .fw-bold { font-weight: bold; }
+
+/* NAVBAR */
+.navbar { background: #111; border-bottom: 1px solid var(--gold); padding: 10px 15px; position: sticky; top: 0; z-index: 99; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { width: 30px; height: 30px; }
+.user-info h3 { font-size: 13px; margin: 0; text-transform: uppercase; }
+.user-info span { font-size: 10px; color: var(--gold); }
+.ref-val { border: 1px solid #333; padding: 2px 5px; border-radius: 4px; color: var(--gold); font-weight: bold; background: #000; }
+
+/* CARD STANDARD */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px; position: relative; }
+
+/* RANK CARD (ATAS) */
+.rank-card { background: linear-gradient(145deg, #1a1a1a, #000); border: 1px solid var(--gold); text-align: center; padding: 15px; }
+.rank-title { font-size: 2rem; font-weight: 800; color: var(--gold); line-height: 1; margin: 5px 0; }
+.rank-sub { font-size: 9px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+
+/* TOTAL & TARGET */
+.total-row { display: flex; justify-content: space-between; align-items: center; }
+.total-left { flex: 1; } .total-right { flex: 1; text-align: right; border-left: 1px solid #333; padding-left: 10px; }
+.t-num { font-size: 2rem; font-weight: 700; line-height: 1; color: #fff; }
+.t-label { font-size: 8px; color: #888; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.n-val { font-size: 1.1rem; color: var(--danger); font-weight: bold; line-height: 1; }
+
+/* SPLIT AREA (KEMBALI KE POSISI AWAL YG PRESISI) */
+.split-card { display: flex; gap: 8px; height: 140px; padding: 8px; }
+.chart-side { width: 40%; display: flex; flex-direction: column; background: #080808; border: 1px solid #222; border-radius: 6px; padding: 5px; }
+.vip-side { width: 60%; display: flex; flex-direction: column; }
+.sec-title { font-size: 8px; text-align: center; color: #666; margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.chart-wrap { flex-grow: 1; width: 100%; position: relative; }
+
+.vip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; height: 100%; }
+.vip-box { background: #080808; border: 1px solid #252525; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.v-lbl { font-size: 7px; color: #666; text-transform: uppercase; }
+.v-cnt { font-size: 11px; font-weight: bold; color: var(--gold); }
+
+/* TARGET TABLE */
+.target-card { border: 1px solid var(--gold); padding: 0; }
+.tg-head { background: rgba(212, 175, 55, 0.15); color: var(--gold); text-align: center; padding: 6px; font-size: 9px; font-weight: bold; border-bottom: 1px solid #333; }
+.tg-body { padding: 8px 12px; }
+.row { display: flex; justify-content: space-between; font-size: 11px; border-bottom: 1px dashed #222; padding: 3px 0; align-items: center; }
+.row:last-child { border: none; }
+.val { font-family: monospace; font-weight: bold; font-size: 12px; }
+
+/* MENU */
+.menu-bar { display: grid; grid-template-columns: 1fr 1fr 0.5fr; gap: 8px; margin-top: 5px; }
+.btn { background: #151515; border: 1px solid var(--gold); color: var(--gold); padding: 10px; border-radius: 6px; font-weight: bold; font-size: 10px; cursor: pointer; }
+.btn-dark { border-color: #333; color: #888; }
+
+/* LOGIN & OTHERS */
+.scroll-body { height: auto; } 
+.login-wrapper { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-box { width: 100%; max-width: 320px; background: #111; padding: 30px; border-radius: 15px; border: 1px solid var(--gold); text-align: center; }
+.login-logo { width: 90px; margin-bottom: 20px; }
+.input-field { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: var(--gold); text-align: center; font-size: 16px; border-radius: 6px; margin-bottom: 15px; outline: none; }
+.btn-main { width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight: bold; border: none; border-radius: 6px; }
+/* TABLE PAGE */
+.table-con { margin-top: 50px; height: calc(100vh - 50px); overflow: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { position: sticky; top: 0; background: #111; color: var(--gold); padding: 12px 5px; font-size: 10px; text-align: left; border-bottom: 1px solid #333; }
+td { padding: 10px 5px; border-bottom: 1px solid #222; color: #eee; }
+/* NETWORK */
+#networkDiagram { width: 100%; height: 100vh; background: #000; }
