@@ -1,0 +1,121 @@
+/* =========================================
+   RESET & BASE (FULL SCREEN LAYOUT)
+   ========================================= */
+:root {
+    --bg: #000000;
+    --card: #0f0f0f;
+    --gold: #D4AF37;
+    --text: #ffffff;
+    --muted: #777;
+    --border: #222;
+    --danger: #ff4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { 
+    background-color: var(--bg); color: var(--text); 
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-size: 12px; 
+    height: 100vh; /* Kunci tinggi layar */
+    display: flex; flex-direction: column;
+    overflow: hidden; /* Tidak boleh scroll di dashboard */
+}
+
+.text-gold { color: var(--gold) !important; }
+.text-red { color: var(--danger) !important; }
+.fw-bold { font-weight: bold; }
+
+/* NAVBAR (Fixed Top) */
+.navbar {
+    height: 50px;
+    background: #111; border-bottom: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 15px; flex-shrink: 0;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-logo { width: 30px; height: 30px; object-fit: contain; }
+.user-info h3 { font-size: 13px; margin: 0; text-transform: uppercase; }
+.user-info span { font-size: 10px; color: var(--gold); }
+.ref-val { font-family: monospace; font-weight: bold; border: 1px solid #333; padding: 2px 6px; border-radius: 4px; color: var(--gold); }
+
+/* CONTAINER (Flex Vertical Stretch) */
+.container {
+    flex-grow: 1; /* Mengisi sisa layar */
+    padding: 10px;
+    display: flex; flex-direction: column;
+    gap: 8px; /* Jarak antar kartu */
+    max-width: 500px; margin: 0 auto; width: 100%;
+}
+
+/* KARTU MELAR OTOMATIS */
+.card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+}
+
+/* 1. RANK CARD (Melar) */
+.rank-card {
+    flex: 2; /* Lebih tinggi dari yg lain */
+    background: linear-gradient(160deg, #1a1a1a 0%, #000 100%);
+    border: 1px solid var(--gold); text-align: center;
+}
+.rank-title { font-size: 2.5rem; font-weight: 800; color: var(--gold); line-height: 1; margin: 5px 0; }
+.rank-sub { font-size: 10px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+
+/* 2. TOTAL CARD (Melar) */
+.total-card { flex: 2; }
+.total-row { display: flex; justify-content: space-between; align-items: center; }
+.t-num { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+.t-label { font-size: 9px; color: #888; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.n-val { font-size: 1.2rem; color: var(--danger); font-weight: bold; line-height: 1; }
+
+/* 3. SPLIT CHART & VIP (Melar Paling Banyak) */
+.split-card { 
+    flex: 4; 
+    flex-direction: row; gap: 8px; padding: 8px;
+}
+.chart-side { width: 40%; display: flex; flex-direction: column; }
+.vip-side { width: 60%; display: flex; flex-direction: column; }
+
+.chart-wrap { flex-grow: 1; width: 100%; position: relative; min-height: 0; }
+.sec-title { font-size: 8px; text-align: center; color: #666; margin-bottom: 4px; letter-spacing: 1px; }
+
+.vip-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+    flex-grow: 1;
+}
+.vip-box {
+    background: #000; border: 1px solid #222; border-radius: 4px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.v-lbl { font-size: 7px; color: #666; }
+.v-cnt { font-size: 11px; font-weight: bold; color: var(--gold); }
+
+/* 4. TARGET CARD (Melar) */
+.target-card { flex: 3; border: 1px solid var(--gold); padding: 0; }
+.tg-head { background: rgba(212, 175, 55, 0.15); color: var(--gold); text-align: center; padding: 6px; font-size: 9px; font-weight: bold; border-bottom: 1px solid #333; }
+.tg-body { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding: 0 15px; }
+.row { display: flex; justify-content: space-between; font-size: 11px; border-bottom: 1px dashed #222; padding: 2px 0; }
+.row:last-child { border: none; }
+.val { font-family: monospace; font-weight: bold; font-size: 12px; }
+
+/* 5. MENU (Fixed Bottom) */
+.menu-bar { flex-shrink: 0; display: grid; grid-template-columns: 1fr 1fr 0.5fr; gap: 8px; }
+.btn { background: #151515; border: 1px solid var(--gold); color: var(--gold); padding: 10px; border-radius: 6px; font-weight: bold; font-size: 10px; cursor: pointer; }
+.btn-dark { border-color: #333; color: #888; }
+
+/* KHUSUS LOGIN & LAINNYA (SCROLLABLE) */
+.scroll-body { height: auto; overflow-y: auto; }
+.login-wrapper { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-box { width: 100%; max-width: 320px; background: #111; padding: 30px; border-radius: 15px; border: 1px solid var(--gold); text-align: center; }
+.login-logo { width: 90px; margin-bottom: 20px; }
+.input-field { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: var(--gold); text-align: center; font-size: 16px; border-radius: 6px; margin-bottom: 15px; outline: none; }
+.btn-main { width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight: bold; border: none; border-radius: 6px; }
+
+/* TABLE PAGE */
+.table-con { margin-top: 50px; height: calc(100vh - 50px); overflow: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { position: sticky; top: 0; background: #111; color: var(--gold); padding: 12px 5px; font-size: 10px; text-align: left; border-bottom: 1px solid #333; }
+td { padding: 10px 5px; border-bottom: 1px solid #222; color: #eee; }
